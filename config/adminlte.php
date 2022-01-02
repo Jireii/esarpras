@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => 'e-<b>Sarpas</b>',
+    'logo_img' => 'https://eprakerin.smkn2-bjm.sch.id/vendor/adminlte/dist/img/smkn2.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'e-Sarpras',
 
     /*
     |--------------------------------------------------------------------------
@@ -238,85 +238,51 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text'        => 'Beranda',
+            'url'         => '/',
+            'icon'        => 'fas fa-fw fa-tachometer-alt',
+        ],
+        ['header' => 'MENU UTAMA'],
+        [
+            'text' => 'Sarpras',
+            'url'  => '/sarpras',
+            'icon' => 'fas fa-fw fa-box',
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text' => 'Buku',
+            'url'  => '/buku',
+            'icon' => 'fas fa-fw fa-book',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Ruangan',
+            'url'  => '/ruangan',
+            'icon' => 'fas fa-fw fa-home',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Pengguna',
+            'url'  => '/pengguna',
             'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'PENGATURAN'],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'       => 'Pemberitahuan',
+            'icon' => 'fas fa-fw fa-comment',
+            'url'        => '/pemberitahuan',
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'       => 'Pengaturan PDF',
+            'icon' => 'fas fa-fw fa-cog',
+            'url'        => '/pengaturanpdf',
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text'       => 'Riwayat Pengguna',
+            'icon' => 'fas fa-fw fa-history',
+            'url'        => '/riwayatpengguna',
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'       => 'Keluar',
+            'icon' => 'fas fa-fw fa-sign-out-alt',
+            'url'        => '/logout',
         ],
     ],
 
