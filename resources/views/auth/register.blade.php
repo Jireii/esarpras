@@ -56,10 +56,10 @@
         <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror">
         <label for="jabatan">jabatan</label>
         <select name="jabatan">
-            <option value="kepsek">kepsek</option>
-            <option value="wakasek">wakasek</option>
-            <option value="kepala lab">kepala lab</option>
-            <option value="guru">guru</option>
+            <option value="Kepala Sekolah">Kepala Sekolah</option>
+            <option value="Wakil Kepala Sekolah">Wakil Kepala Sekolah</option>
+            <option value="Kepala Lab">Kepala Lab</option>
+            <option value="Guru">Guru</option>
         </select>
         <label for="agama">agama</label>
         <select name="agama">

@@ -36,6 +36,10 @@ class AuthController extends Controller
         $validatedData['jabatan'] = $request->jabatan;
         $validatedData['agama'] = $request->agama;
         $validatedData['gender'] = $request->gender;
+        
+        if($request->file('gambar')) {
+            $validatedData['gambar'] = $request->file('gambar')->store('user-images');
+        }
 
         // dd($validatedData);
         User::create($validatedData);
