@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Space;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpaceController;
-use App\Models\Space;
+use App\Http\Controllers\NoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,9 @@ Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
 Route::post('/ruangan/create', [SpaceController::class, 'store'])->name('space.store');
 Route::post('/ruangan/{space:id}/edit', [SpaceController::class, 'edit'])->name('space.edit');
 Route::delete('/ruangan/{space:id}/delete', [SpaceController::class, 'destroy'])->name('space.destroy');
+
+// Pemberitahuan
+Route::get('/pemberitahuan', [NoticeController::class, 'index'])->name('notice');
+Route::post('/pemberitahuan/create', [NoticeController::class, 'store'])->name('notice.store');
+Route::post('/pemberitahuan/{notice:id}/edit', [NoticeController::class, 'edit'])->name('notice.edit');
+Route::delete('/pemberitahuan/{notice:id}/delete', [NoticeController::class, 'destroy'])->name('notice.destroy');
