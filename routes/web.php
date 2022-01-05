@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpaceController;
@@ -25,6 +26,15 @@ Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
 Route::post('/ruangan/create', [SpaceController::class, 'store'])->name('space.store');
 Route::post('/ruangan/{space:id}/edit', [SpaceController::class, 'edit'])->name('space.edit');
 Route::delete('/ruangan/{space:id}/delete', [SpaceController::class, 'destroy'])->name('space.destroy');
+
+// Buku
+Route::get('/buku', [BookController::class, 'index'])->name('book');
+Route::get('/buku//create', [BookController::class, 'add'])->name('book.add');
+Route::post('/buku//create', [BookController::class, 'store'])->name('book.store');
+Route::get('/buku/{book:id}/detail', [BookController::class, 'detail'])->name('book.detail');
+Route::get('/buku/{book:id}/edit', [BookController::class, 'edit'])->name('book.edit');
+Route::put('/buku/{book:id}/edit', [BookController::class, 'update'])->name('book.update');
+Route::delete('/buku/{book:id}/delete', [BookController::class, 'destroy'])->name('book.destroy');
 
 // Pemberitahuan
 Route::get('/pemberitahuan', [NoticeController::class, 'index'])->name('notice');
