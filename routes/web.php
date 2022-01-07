@@ -2,6 +2,7 @@
 
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\NoticeController;
 
@@ -19,6 +20,11 @@ use App\Http\Controllers\NoticeController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Sarpras
+Route::get('/sarpras', [AssetController::class, 'index'])->name('aset');
+Route::get('/sarpras/create', [AssetController::class, 'create'])->name('asset.create');
+route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
