@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->enum('jabatan', ['Kepala Sekolah', 'Wakil Kepala Sekolah', 'Kepala Lab', 'Guru']);
             $table->enum('agama', ['Islam', 'Buddha', 'Kristen', 'Katholik', 'Hindu']);
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
-            $table->string('gambar')->nullable();
+            $table->string('gambar')->nullable()->default('default_profile.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

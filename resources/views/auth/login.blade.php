@@ -19,6 +19,7 @@
     
     <body>
         <form class="form-signin" method="post" action="/login">
+            @csrf
             <div class="text-center mb-4">
                 <img class="mb-4" src="/img/logosmkn2.png" width="150">
                 <h1 class="h3 mb-3 font-weight-normal">Inventory Management</h1>
@@ -26,7 +27,7 @@
             </div>
 
             <div class="form-label-group">
-                <input type="text" id="username" name="username" class="form-control" placeholder="Email address" required autofocus>
+                <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Email address" required autofocus>
                 <label for="username" class="text-secondary shadow">Username</label>
             </div>
 
@@ -35,9 +36,17 @@
                 <label for="password" class="text-secondary shadow">Password</label>
             </div>
 
+            @if (session('loginError'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('loginError') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <button class="btn btn-lg btn-primary btn-block fs-6 shadow" type="submit" name="submit">Masuk</button>
 
             <p class="mt-5 mb-3 text-muted text-center">SMK Negeri 2 Banjarmasin</p>
         </form>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>

@@ -2,9 +2,11 @@
 
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\NoticeController;
-use App\Http\Controllers\AuthController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
@@ -33,9 +35,21 @@ Route::post('/pemberitahuan/create', [NoticeController::class, 'store'])->name('
 Route::post('/pemberitahuan/{notice:id}/edit', [NoticeController::class, 'edit'])->name('notice.edit');
 Route::delete('/pemberitahuan/{notice:id}/delete', [NoticeController::class, 'destroy'])->name('notice.destroy');
 
-// Login
-Route::get('/login', [AuthController::class, 'getLogin']);
+// Profile
+Route::get('/pengguna', [UserController::class, 'index'])->name('profile');
+Route::get('/pengguna/{user:id}/edit', [AuthController::class, 'edit'])->name('profile.edit');
+Route::put('/pengguna/{user:id}/edit', [AuthController::class, 'update'])->name('profile.update');
 
-// Register
-Route::get('/register', [AuthController::class, 'getRegister']);
-Route::post('/register', [AuthController::class, 'postRegister']);
+// Login
+Route::get('/login', [AuthController::class, 'getLogin'])->middleware('guest')->name('login');
+Route::post('/login', [AuthController::class, 'postLogin'])->name('login.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// User
+Route::get('/users', [UserController::class, 'userlist'])->name('user.list');
+Route::get('/users/{user:id}', [UserController::class, 'details'])->name('user.detail');
+Route::get('/users/{user:id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/users/{user:id}/edit', [UserController::class, 'update'])->name('user.patch');
+Route::delete('/users/{user:id}/delete', [UserController::class, 'destroy'])->name('user.delete');
+Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'postRegister'])->name('register.store');
