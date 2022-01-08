@@ -24,7 +24,7 @@ class CreateAssetsTable extends Migration
             $table->year('tahun_beli')->nullable();
             $table->enum('dana', ['BOS', 'BOSDA'])->nullable();
             $table->enum('kondisi', ['Baik', 'Rusak']);
-            $table->foreignId('space_id');
+            $table->foreignId('space_id')->constrained();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();
         });

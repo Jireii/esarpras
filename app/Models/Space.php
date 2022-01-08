@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Book;
 use App\Models\Asset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,12 +17,13 @@ class Space extends Model
         'id'
     ];
 
-    protected $fillable = [
-        'nama'
-    ];
-
-    public function Asset()
+    public function asset()
     {
         return $this->hasMany(Asset::class);
+    }
+
+    public function book()
+    {
+        return $this->hasMany(Book::class);
     }
 }

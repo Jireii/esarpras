@@ -57,7 +57,6 @@ foreach ($datas as $data) {
 
     $query[]=[
         $loop,
-        // @dd($loop),
         $data->nama,
         $data->merk,
         $data->tipe,
@@ -78,7 +77,7 @@ $config = [
     'data' => $query,
     'order' => [[0, 'asc']],
     // 'columns' => [['className' => 'align-middle'], null, null, null, null, null, ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center d-none'], ['orderable' => false, 'className' => 'text-center']],
-    'columns' => [['className' => 'text-center'], null, null, null, null, null, ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'], null, ['orderable' => false, 'className' => 'text-center']],
+    'columns' => [['className' => 'text-center'], null, null, null, null, null, ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'], ['orderable' => false, 'className' => 'text-center']],
     'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
 ];
 @endphp

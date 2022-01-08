@@ -16,20 +16,7 @@ class Asset extends Model
         'id'
     ];
 
-    protected $fillabel = [
-        'nama',
-        'gambar',
-        'merk',
-        'tipe',
-        'register',
-        'harga',
-        'tahun_beli',
-        'dana',
-        'kondisi',
-        'space_id',
-    ];
-
-    public function Space()
+    public function space()
     {
         return $this->belongsTo(Space::class);
     }

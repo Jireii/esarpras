@@ -5,107 +5,97 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use App\Models\Space;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class AssetController extends Controller
 {
     public function index()
     {
-        // $datas = Asset::join('space', 'asset.space_id', 'space.id')
-        // ->select
-        // (
-        //     'asset.id',
-        //     'asset.nama',
-        //     'asset.gambar',
-        //     'asset.merk',
-        //     'asset.tipe',
-        //     'asset.register',
-        //     'asset.harga',
-        //     'asset.tahun_beli',
-        //     'asset.dana',
-        //     'asset.kondisi',
-        //     'asset.space_id',
-        //     'space.nama',
-        // )
-        // ->get();
-        // dd($datas);
         return view('asset.index', [
-            // 'datas' => Asset::with('Space')->get(),
-            'datas' => $datas
+            'datas' => Asset::all(),
         ]);
     }
 
-    public function create(Request $request)
-    {
-        // if (auth()->user()->role == 'Guest')
-        // {
-        //     abort(403);
-        // }
+    public function detail($id){
+        $data = Asset::find($id);
 
-        return view('asset.create'. [
-            'datas' => Asset::all(),
-        ]) ;
+        return view('asset.detail', [
+            'data' => $data,
+        ]);
     }
 
-    public function store(Request $request)
+    public function add()
     {
-        // if (auth()->user()->role == 'Guest')
-        // {
-        //     abort(403);
-        // }
+        return view('asset.add', [
+            'spaces' => Space::all()->values('id', 'nama')
+        ]);
+    }
 
+    public function store(Request $request){
         $input = new Asset;
 
-        $input->nama = $request->nama;
         if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar');
-            $gambarName = time().'.'.$gambar->extension();
-            $gambar->move(public_path('images'), $gambarName);
-            $input->file = $gambarName;
+            $image = $request->file('gambar');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $input->gambar = $imageName;
+        } else {
+            $input->gambar = 'default_asset.png';
         }
+
+        $input->nama = $request->nama;
         $input->merk = $request->merk;
         $input->tipe = $request->tipe;
         $input->register = $request->register;
         $input->harga = $request->harga;
         $input->tahun_beli = $request->tahun_beli;
         $input->dana = $request->dana;
-        $input->kondisi = $request->kondisi;
         $input->space_id = $request->space_id;
+
         $input->save();
 
-        return redirect()->back()->with('status', 'Sarpras "'.$request->nama.'" berhasil ditambahkan!');
+        return redirect()->back()->with('status', 'Sarpras "'.$request->nama.'" berhasil ditambahkan.');
     }
 
-    public function edit($id)
-    {
-        // if (auth()->user()->role == 'Guest')
-        // {
-        //     abort(403);
-        // }
-
-        return view('asset.new.php', [
-
+    public function edit(Asset $data){
+        return view('book.edit', [
+            'data' => $data,
+            'spaces' => Space::all()->values('id', 'nama')
         ]);
     }
 
-    public function update($id)
-    {
-        // if (auth()->user()->role == 'Guest')
-        // {
-        //     abort(403);
-        // }
+    public function update(Request $request, $id){
+        $input = Asset::find($id);
 
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('images'), $imageName);
+            $input->gambar = $imageName;
+        } else {
+            $input->gambar = $input->gambar;
+        }
+
+        $input->nama = $request->nama;
+        $input->merk = $request->merk;
+        $input->tipe = $request->tipe;
+        $input->register = $request->register;
+        $input->harga = $request->harga;
+        $input->tahun_beli = $request->tahun_beli;
+        $input->dana = $request->dana;
+        $input->space_id = $request->space_id;
+
+        $input->save();
+
+        return redirect()->back()->with('status', 'Sarpras berhasil diperbarui');
     }
 
     public function destroy($id)
     {
-        // if (auth()->user()->role == 'Guest')
-        // {
-        //     abort(403);
-        // }
+        $data = Asset::find($id);
+        $nama = $data->nama;
+        $data->delete();
 
-        $input = Asset::find($id);
-        $input->delete();
-
-        return redirect('/sarpras');
+        return redirect('/sarpras')->with('status', 'Berhasil menghapus sarpras "'.$nama.'".');
     }
 }
