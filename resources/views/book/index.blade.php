@@ -1,5 +1,5 @@
 @php
-$heads = [['label' => 'No', 'width' => 1], 'Judul Buku', ['label' => 'Nomor ISBN/ISSN', 'width' => 15], 'Penerbit', ['label' => 'Tahun Terbit', 'width' => 14], ['label' => 'Opsi', 'width' => 17]];
+$heads = [['label' => 'No', 'width' => 1], 'Judul Buku', ['label' => 'Nomor ISBN/ISSN', 'width' => 15], 'Penerbit', ['label' => 'Tahun Terbit', 'width' => 14], ['label' => 'Opsi', 'width' => 17, 'no-export' => true]];
 
 $query = [];
 $loop = 1;
@@ -98,7 +98,7 @@ $config = [
         <a href="{{ route('book.add') }}">
             <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus"  />
         </a>
-        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered />
+        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered with-buttons/>
     </x-adminlte-card>
 @stop
 
