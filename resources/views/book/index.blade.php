@@ -20,14 +20,15 @@ foreach ($datas as $data) {
         route('book.edit', $dataId) .
         '><button class="btn btn-xs btn-success mx-1 shadow-sm" title="Edit">
                 <i class="fa fa-fw fa-pen"></i> Sunting
-            </button>';
+            </button>
+            </a>';
 
     $btnDetail =
         '<a href=' .
         route('book.detail', $dataId) .
         '><button class="btn btn-xs btn-info mx-1 shadow-sm" title="Detail">
                 <i class="fa fa-fw fa-info"></i> Detail
-            </button>';
+            </button> </a>';
 
     $mdlDelete =
         '<div class="modal fade" id="modalHapus_' .
@@ -66,7 +67,21 @@ foreach ($datas as $data) {
 
     // =========== The later form is missing @method('DELETE')
 
-    $query[] = [$loop, $data->judul, $data->nomor_buku, $data->penerbit, $data->tahun_terbit, '<nobr>' . $btnDetail . $btnEdit . $btnDelete . '</nobr>'];
+    $query[] = [$loop, 
+    $data->judul, 
+    $data->nomor_buku, 
+    $data->penerbit, $data->tahun_terbit, 
+    '<nobr>' . $btnDetail . $btnEdit . $btnDelete . '</nobr>',        $data->pengarang ,
+        $data->penerbit ,
+        $data->tahun_terbit ,
+        $data->halaman ,
+        $data->register ,
+        $data->tahun_beli ,
+        $data->harga ,
+        $data->dana ,
+        $data->kondisi ,
+        $data->space_id ,
+];
     echo $mdlDelete;
     // @dd($dataId);
     $loop++;
@@ -75,7 +90,14 @@ foreach ($datas as $data) {
 $config = [
     'data' => $query,
     'order' => [[0, 'asc']],
-    'columns' => [['className' => 'text-center'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'text-center', 'orderable' => false]],
+    'columns' => [
+        ['className' => 'text-center'], 
+        ['className' => 'dt-head-right'], 
+        ['className' => 'dt-head-right'], 
+        ['className' => 'dt-head-right'], 
+        ['className' => 'dt-head-right'], 
+        ['className' => 'text-center', 'orderable' => false]
+    ],
     'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
 ];
 @endphp
@@ -96,9 +118,9 @@ $config = [
     @endif
     <x-adminlte-card title="Daftar Buku" theme="success" theme-mode="outline">
         <a href="{{ route('book.add') }}">
-            <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus"  />
+            <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus" />
         </a>
-        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered />
+        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered with-buttons/>
     </x-adminlte-card>
 @stop
 

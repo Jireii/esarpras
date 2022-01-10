@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use view;
 use App\Models\Book;
 use App\Models\Space;
 use Illuminate\Http\Request;
