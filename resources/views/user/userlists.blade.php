@@ -13,6 +13,8 @@
         'NIK',
         'Jabatan',
         'Role',
+        'Last Login Time',
+        'Last Login IP',
         ['label' => 'Opsi', 'no-export' => true, 'width' => 5],
     ];
 
@@ -57,8 +59,8 @@
                 </div>
             </div>
         </div>";
-
-        $query[] = [$x, $user->nama, $user->nik, $user->jabatan, $user->role, '<nobr>' . $btnDetail . $btnDelete . '</nobr>'];
+        
+        $query[] = [$x, $user->nama, $user->nik, $user->jabatan, $user->role, $user->last_login_at, $user->last_login_ip, '<nobr>' . $btnDetail . $btnDelete . '</nobr>'];
         $x++;
         echo $modalHapus;
         // var_dump($modalHapus);die;
@@ -66,7 +68,15 @@
     $config = [
         'data' => $query,
         'order' => [[0, 'asc']],
-        'columns' => [['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'],  ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['orderable' => false, 'className' => 'text-center']],
+        'columns' => [
+            ['className' => 'text-center'], 
+            ['className' => 'text-center'], 
+            ['className' => 'text-center'],  
+            ['className' => 'text-center'], 
+            ['className' => 'text-center'], 
+            ['className' => 'text-center'], 
+            ['className' => 'text-center'], 
+            ['orderable' => false, 'className' => 'text-center']],
         'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
     ];
     @endphp

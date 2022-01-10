@@ -63,3 +63,5 @@ Route::put('/users/{user:id}/edit', [UserController::class, 'update'])->name('us
 Route::delete('/users/{user:id}/delete', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register.store');
+
+Route::get('/riwayatpengguna', [AuthController::class, 'loghistory'])->name('loghistory');

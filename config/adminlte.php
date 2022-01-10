@@ -279,12 +279,6 @@ return [
             'icon' => 'fas fa-fw fa-history',
             'url'        => '/riwayatpengguna',
         ],
-        [
-            'text'       => 'Keluar',
-            'icon' => 'fas fa-fw fa-sign-out-alt',
-            'route' => 'logout',
-            'url'        => '/logout',
-        ],
     ],
 
     /*
