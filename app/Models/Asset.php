@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Book;
-use App\Models\Asset;
+use App\Models\Space;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Space extends Model
+class Asset extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -17,13 +16,8 @@ class Space extends Model
         'id'
     ];
 
-    public function asset()
+    public function space()
     {
-        return $this->hasMany(Asset::class);
-    }
-
-    public function book()
-    {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(Space::class);
     }
 }

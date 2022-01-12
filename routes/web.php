@@ -5,6 +5,7 @@ use App\Models\Space;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\NoticeController;
 use GuzzleHttp\Middleware;
@@ -23,6 +24,11 @@ use GuzzleHttp\Middleware;
 Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
+
+// Sarpras
+Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');
+Route::get('/sarpras/create', [AssetController::class, 'add'])->name('asset.add');
+route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');

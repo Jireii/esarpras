@@ -1,5 +1,5 @@
 @php
-$heads = [['label' => 'No', 'width' => 1], 'Judul Buku', ['label' => 'Nomor ISBN/ISSN', 'width' => 15], 'Penerbit', ['label' => 'Tahun Terbit', 'width' => 14], ['label' => 'Opsi', 'width' => 17]];
+$heads = [['label' => 'No', 'width' => 1], 'Judul Buku', ['label' => 'Nomor ISBN/ISSN', 'width' => 15], 'Penerbit', ['label' => 'Tahun Terbit', 'width' => 14], ['label' => 'Opsi', 'width' => 17 , 'no-export' => true], 'Halaman', 'Nomor Register', 'Tahun Beli', 'Harga', 'Dana', 'Kondisi', 'Ruangan'];
 
 $query = [];
 $loop = 1;
@@ -67,21 +67,7 @@ foreach ($datas as $data) {
 
     // =========== The later form is missing @method('DELETE')
 
-    $query[] = [$loop, 
-    $data->judul, 
-    $data->nomor_buku, 
-    $data->penerbit, $data->tahun_terbit, 
-    '<nobr>' . $btnDetail . $btnEdit . $btnDelete . '</nobr>',        $data->pengarang ,
-        $data->penerbit ,
-        $data->tahun_terbit ,
-        $data->halaman ,
-        $data->register ,
-        $data->tahun_beli ,
-        $data->harga ,
-        $data->dana ,
-        $data->kondisi ,
-        $data->space_id ,
-];
+    $query[] = [$loop, $data->judul, $data->nomor_buku, $data->penerbit, $data->tahun_terbit, '<nobr>' . $btnDetail . $btnEdit . $btnDelete . '</nobr>' ,$data->pengarang, $data->penerbit, $data->tahun_terbit, $data->halaman, $data->register, $data->tahun_beli, $data->harga, $data->dana, $data->kondisi, $data->space->nama];
     echo $mdlDelete;
     // @dd($dataId);
     $loop++;
@@ -90,14 +76,7 @@ foreach ($datas as $data) {
 $config = [
     'data' => $query,
     'order' => [[0, 'asc']],
-    'columns' => [
-        ['className' => 'text-center'], 
-        ['className' => 'dt-head-right'], 
-        ['className' => 'dt-head-right'], 
-        ['className' => 'dt-head-right'], 
-        ['className' => 'dt-head-right'], 
-        ['className' => 'text-center', 'orderable' => false]
-    ],
+    'columns' => [['className' => 'text-center'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'dt-head-right'], ['className' => 'text-center', 'orderable' => false], ["visible" => false], ["visible" => false], ["visible" => false], ["visible" => false], ["visible" => false], ["visible" => false], ["visible" => false]],
     'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
 ];
 @endphp
@@ -120,7 +99,8 @@ $config = [
         <a href="{{ route('book.add') }}">
             <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus" />
         </a>
-        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered with-buttons/>
+        <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered
+            with-buttons />
     </x-adminlte-card>
 @stop
 
