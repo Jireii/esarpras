@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asset;
 use App\Models\Space;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,19 @@ class SpaceController extends Controller
         // }
 
         $input = Space::find($id);
+
+        $assets = Asset::all();
+        foreach($assets as $asset)
+        {
+            if ($asset->space_id == $id)
+            {
+                    $change = Asset::find($asset->id);
+                    $change->space_id = 1;
+                    // dd($change->space_id);
+                    $change->update();
+            }
+        }
+
         $nama = $input->nama;
         $input->delete();
 

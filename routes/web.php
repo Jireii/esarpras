@@ -23,8 +23,8 @@ Route::get('/', function () {
 });
 
 // Sarpras
-Route::get('/sarpras', [AssetController::class, 'index'])->name('aset');
-Route::get('/sarpras/create', [AssetController::class, 'create'])->name('asset.create');
+Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');
+Route::get('/sarpras/create', [AssetController::class, 'add'])->name('asset.add');
 route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
 
 // Ruangan

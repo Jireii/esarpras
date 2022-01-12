@@ -89,7 +89,9 @@ $config = [
         </x-adminlte-alert>
     @endif
     <x-adminlte-card title="Daftar Sarpras" theme="green" theme-mode="outline">
-        {{-- <x-adminlte-button icon="fas fa-fw fa-plus" label="Tambah Sarpras" theme="success" type="button" class="btn-sm mb-3" data-toggle="modal" data-target="#modalTambah"/> --}}
+        <a href="{{ route('asset.add') }}">
+            <x-adminlte-button icon="fas fa-fw fa-plus" label="Tambah Sarpras" theme="primary" type="button" class="btn-sm mb-3"/>
+        </a>
         <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered with-buttons/>
 
     </x-adminlte-card>

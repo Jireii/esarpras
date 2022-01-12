@@ -27,7 +27,8 @@ class AssetController extends Controller
     public function add()
     {
         return view('asset.add', [
-            'spaces' => Space::all()->values('id', 'nama')
+            'spaces' => Space::all()->values('id', 'nama'),
+            'title' => 'e-Sarpas - Tambah Sarpras'
         ]);
     }
 
