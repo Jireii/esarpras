@@ -282,6 +282,7 @@ return [
         [
             'text'       => 'Keluar',
             'icon' => 'fas fa-fw fa-sign-out-alt',
+            'route' => 'logout',
             'url'        => '/logout',
         ],
     ],
