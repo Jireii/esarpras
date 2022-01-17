@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SpaceController;
@@ -23,6 +24,15 @@ use GuzzleHttp\Middleware;
 Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
+
+// Sarpras
+Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');
+Route::get('/sarpras/create', [AssetController::class, 'add'])->name('asset.add');
+route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
+Route::get('/sarpras/{asset:id}/detail', [AssetController::class, 'detail'])->name('asset.detail');
+Route::get('/sarpras/{asset:id}/edit', [AssetController::class, 'edit'])->name('asset.edit');
+Route::put('/sarpras/{asset:id}/update', [AssetController::class, 'update'])->name('asset.update');
+Route::delete('/sarpras/{asset:id}/delete', [AssetController::class, 'destroy'])->name('asset.destroy');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
