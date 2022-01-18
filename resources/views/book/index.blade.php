@@ -95,9 +95,11 @@ $config = [
         </x-adminlte-alert>
     @endif
     <x-adminlte-card title="Daftar Buku" theme="success" theme-mode="outline">
-        <a href="{{ route('book.add') }}">
-            <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus"  />
-        </a>
+        @if (auth()->user()->role !== 'Guest')
+            <a href="{{ route('book.add') }}">
+                <x-adminlte-button class="btn-sm mb-4" label="Tambah Buku" theme="primary" icon="fa fa-fw fa-plus"  />
+            </a>
+        @endif
         <x-adminlte-datatable id="table" :heads="$heads" head-theme="white" :config="$config" striped hoverable bordered />
     </x-adminlte-card>
 @stop
