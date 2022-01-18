@@ -23,38 +23,12 @@ $heads = [
 $query = [];
 $loop = 1;
 foreach ($datas as $data) {
-    $btnEdit = '<button class="btn btn-xs btn-success mx-1 shadow-sm" title="Edit" data-toggle="modal" data-target="#modalSunting_'.$data->id.'">
-                <i class="fa fa-fw fa-pen"></i> Sunting
+    $btnDetail =
+        '<a href=' .
+        route('asset.detail', $data->id) .
+        '><button class="btn btn-xs btn-info mx-1 shadow-sm" title="Detail">
+                <i class="fa fa-fw fa-info"></i> Detail
             </button>';
-    $btnDelete = '<button class="btn btn-xs btn-danger mx-1 shadow-sm" title="Hapus" data-toggle="modal" data-target="#modalHapus_'.$data->id.'">
-                  <i class="fa fa-fw fa-trash"></i> Hapus
-              </button>';
-    $mdlDelete = '<div class="modal fade" id="modalHapus_'.$data->id.'" tabindex="-1" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Hapus Dokumen</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Apakah anda yakin ingin menghapus '.$data->nama.'?
-                </div>
-                <div class="modal-footer">
-                    <form action="'.route("space.destroy", $data->id).'" method="POST">
-                        <input type="hidden" name="_method" value="DELETE" />
-                        <input type="hidden" name="_token" value="'.csrf_token().'" />
-                        <button type="button" class="mr-auto px-3 py-1 btn btn-secondary btn-sm"
-                            data-bs-dismiss="modal" data-dismiss="modal">Tidak</button>
-                        <button type="submit" class="px-3 py-1 btn btn-danger btn-sm">Ya</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>';
-
     $query[]=[
         $loop,
         $data->nama,
@@ -66,11 +40,8 @@ foreach ($datas as $data) {
         $data->dana, //invisible
         $data->kondisi,
         $data->space->nama, //invisible
-        '<nobr>'.$btnEdit.$btnDelete.'</nobr>',
+        '<nobr>'.$btnDetail.'</nobr>',
     ];
-    // echo($mdlEdit);
-    // echo($mdlDelete);
-    // @dd($dataId);
     $loop++;
 }
 $config = [

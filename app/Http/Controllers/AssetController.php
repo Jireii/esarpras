@@ -21,13 +21,15 @@ class AssetController extends Controller
 
         return view('asset.detail', [
             'data' => $data,
+            'spaces' => Space::all(),
+            'title' => 'e-Sarpras - Detail Sarpras'
         ]);
     }
 
     public function add()
     {
         return view('asset.add', [
-            'spaces' => Space::all()->values('id', 'nama'),
+            'spaces' => Space::where('id', '!=', 1)->get(),
             'title' => 'e-Sarpas - Tambah Sarpras'
         ]);
     }
@@ -58,10 +60,13 @@ class AssetController extends Controller
         return redirect()->back()->with('status', 'Sarpras "'.$request->nama.'" berhasil ditambahkan.');
     }
 
-    public function edit(Asset $data){
-        return view('book.edit', [
+    public function edit($id){
+        $data = Asset::find($id);
+        $nama = '$data->nama';
+        return view('asset.edit', [
             'data' => $data,
-            'spaces' => Space::all()->values('id', 'nama')
+            'spaces' => Space::all(),
+            'title' => 'e-Sapras - Edit Aset'
         ]);
     }
 

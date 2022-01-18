@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AssetController;
@@ -29,6 +30,10 @@ Route::get('/', function () {
 Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');
 Route::get('/sarpras/create', [AssetController::class, 'add'])->name('asset.add');
 route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
+Route::get('/sarpras/{asset:id}/detail', [AssetController::class, 'detail'])->name('asset.detail');
+Route::get('/sarpras/{asset:id}/edit', [AssetController::class, 'edit'])->name('asset.edit');
+Route::put('/sarpras/{asset:id}/update', [AssetController::class, 'update'])->name('asset.update');
+Route::delete('/sarpras/{asset:id}/delete', [AssetController::class, 'destroy'])->name('asset.destroy');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
@@ -69,3 +74,5 @@ Route::put('/users/{user:id}/edit', [UserController::class, 'update'])->name('us
 Route::delete('/users/{user:id}/delete', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register.store');
+
+Route::get('/riwayatpengguna', [AuthController::class, 'loghistory'])->name('loghistory');

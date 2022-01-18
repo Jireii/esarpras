@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\LogHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Image;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -21,8 +23,23 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-
+        
         if(Auth::attempt($credentials)) {
+            $agent = $request->server('HTTP_USER_AGENT');
+            $last_login = Carbon::now()->toDateTimeString();
+            $ip = $request->getClientIp();
+
+            $datas['user_id'] = Auth::user()->id;
+            $datas['device'] = $agent;
+            $datas['ip'] = $ip;
+            $datas['last_login'] = $last_login;
+
+            LogHistory::create($datas);
+
+            User::where('id', auth()->user()->id)->update([
+                'last_login_at' => $last_login,
+                'last_login_ip' => $ip
+            ]);
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
@@ -32,17 +49,14 @@ class AuthController extends Controller
 
     public function getRegister()
     {
-        if(auth()->user()->role !== 'Superuser') {
-            return redirect('/');
-        }
+        // if(auth()->user()->role !== 'Superuser') {
+        //     return redirect('/');
+        // }
         return view('auth.register');
     }
 
     public function postRegister(Request $request)
     {
-        if(auth()->user()->role !== 'Superuser') {
-            return redirect('/');
-        }
         $validatedData = $request->validate([
             'username' => 'required|unique:users|min:3',
             'password' => 'required|min:3',
@@ -136,6 +150,13 @@ class AuthController extends Controller
         User::where('id', auth()->user()->id)->update($validatedData);
         
         return redirect("/pengguna")->with('success', 'Edit Profile berhasil!');
+    }
+
+    public function loghistory(LogHistory $logHistory)
+    {
+        return view('auth.loghistory', [
+            'datas' => $logHistory->all()
+        ]);
     }
 
     public function logout(Request $request)
