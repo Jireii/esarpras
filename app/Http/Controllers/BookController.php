@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use view;
 use App\Models\Book;
 use App\Models\Space;
 use Illuminate\Http\Request;
@@ -43,6 +44,8 @@ class BookController extends Controller
             $book->gambar = 'default_book.png';
         }
 
+        $rp = (int)str_replace([',', '.', 'Rp', ' '], '', $request->harga);
+
         $book->judul = $request->judul;
         $book->nomor_buku = $request->nomor_buku;
         $book->pengarang = $request->pengarang;
@@ -51,7 +54,7 @@ class BookController extends Controller
         $book->halaman = $request->halaman;
         $book->register = $request->register;
         $book->tahun_beli = $request->tahun_beli;
-        $book->harga = $request->harga;
+        $book->harga = $rp;
         $book->dana = $request->dana;
         $book->kondisi = $request->kondisi;
         $book->space_id = $request->space_id;
@@ -79,6 +82,8 @@ class BookController extends Controller
             $book->gambar = $book->gambar;
         }
 
+        $rp = (int)str_replace([',', '.', 'Rp', ' '], '', $request->harga);
+
         $book->judul = $request->judul;
         $book->nomor_buku = $request->nomor_buku;
         $book->pengarang = $request->pengarang;
@@ -87,7 +92,7 @@ class BookController extends Controller
         $book->halaman = $request->halaman;
         $book->register = $request->register;
         $book->tahun_beli = $request->tahun_beli;
-        $book->harga = $request->harga;
+        $book->harga = $rp;
         $book->dana = $request->dana;
         $book->kondisi = $request->kondisi;
         $book->space_id = $request->space_id;
