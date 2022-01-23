@@ -1,25 +1,25 @@
 @extends('adminlte::page')
 
 @section('title', 'User')
-    
+
 @section('content_header')
     <h1>User</h1>
 @stop
 
 @section('content')
-    
+
     @if (session()->has('success'))
     <x-adminlte-alert theme="success" title="Success" dismissable>
         {{ session('success') }}
     </x-adminlte-alert>
     @endif
-    
+
     <x-adminlte-card theme="success" theme-mode="outline">
         <div class="row">
 
             <div class="col-md-4 mt-3">
                 <div class="text-center border rounded position-relative" style="background-color:rgb(233,236,239);height:14.3rem; max-width:22rem;">
-                    <img class="img img-thumbnail" src="{{ asset("/img/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
+                    <img class="img img-thumbnail" src="{{ asset("/images/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
                 </div>
             </div>
 

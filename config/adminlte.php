@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => 'e-<b>Sarpas</b>',
+    'logo' => 'e-<b>Sarpras</b>',
     'logo_img' => 'https://eprakerin.smkn2-bjm.sch.id/vendor/adminlte/dist/img/smkn2.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -261,9 +261,14 @@ return [
         [
             'text' => 'Pengguna',
             'url'  => '/pengguna',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-users',
         ],
         ['header' => 'PENGATURAN'],
+        [
+            'text' => 'Profil',
+            'url'  => '/profil',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         [
             'text'       => 'Pemberitahuan',
             'icon' => 'fas fa-fw fa-comment',

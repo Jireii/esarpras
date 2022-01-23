@@ -23,7 +23,7 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
-        
+
         if(Auth::attempt($credentials)) {
             $agent = $request->server('HTTP_USER_AGENT');
             $last_login = Carbon::now()->toDateTimeString();
@@ -66,19 +66,19 @@ class AuthController extends Controller
             'tanggal_lahir' => 'required',
             'email' => 'required',
         ]);
-        
+
         $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['telp'] = $request->telp;
         $validatedData['alamat'] = $request->alamat;
         $validatedData['jabatan'] = $request->jabatan;
         $validatedData['agama'] = $request->agama;
         $validatedData['gender'] = $request->gender;
-        
+
         if($request->file('gambar')) {
             $gambar = $request->file('gambar');
             $file_name = time() . '_' . $gambar->getClientOriginalName();
             $img = Image::make($gambar);
-            $img->save(\public_path("img/$file_name"), 20, 'jpg');
+            $img->save(\public_path("images/$file_name"), 20, 'jpg');
             $validatedData['gambar'] = $file_name;
         }
 
@@ -113,12 +113,12 @@ class AuthController extends Controller
 
         if( $request->file('gambar') ) {
             if($user->gambar) {
-                File::delete(public_path('/img/'. Auth::user()->gambar));
+                File::delete(public_path('/images/'. Auth::user()->gambar));
             }
             $gambar = $request->file('gambar');
             $file_name = time() . '_' . $gambar->getClientOriginalName();
             $img = \Image::make($gambar);
-            $img->save(\public_path("img/$file_name"), 20, 'jpg');
+            $img->save(\public_path("images/$file_name"), 20, 'jpg');
             $validatedData['gambar'] = $file_name;
         }
 
@@ -141,14 +141,14 @@ class AuthController extends Controller
                     } else {
                         return redirect("/pengguna/" . auth()->user()->id . "/edit")->with('failed', 'Password yang dimasukkan tidak sama!');
                     }
-                }    
+                }
             } else {
                 return redirect("/pengguna/" . auth()->user()->id . "/edit")->with('failed', 'Password yang lama salah!');
             }
         }
 
         User::where('id', auth()->user()->id)->update($validatedData);
-        
+
         return redirect("/pengguna")->with('success', 'Edit Profile berhasil!');
     }
 
@@ -162,7 +162,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

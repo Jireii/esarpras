@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Profile')
-    
+
 @section('content_header')
     <h1>Profile</h1>
 @stop
@@ -17,13 +17,13 @@
             {{ session('failed') }}
         </x-adminlte-alert>
     @endif
-    
+
     <x-adminlte-card theme="success" theme-mode="outline">
         <div class="row">
 
             <div class="col-md-4 mt-3">
                 <div class="text-center border rounded position-relative" style="background-color:rgb(233,236,239);height:14.3rem; max-width:22rem;">
-                    <img class="img img-thumbnail" src="{{ asset("/img/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
+                    <img class="img img-thumbnail" src="{{ asset("/images/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
                 </div>
             </div>
 
