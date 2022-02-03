@@ -13,7 +13,7 @@ foreach ($datas as $data) {
     $dataNama = $data->nama;
 
     $btnEdit = '<button class="btn btn-xs btn-success mx-1 shadow-sm" title="Edit" data-toggle="modal" data-target="#modalSunting_'.$dataId.'">
-                <i class="fa fa-fw fa-pen"></i> Sunting
+                <i class="fa fa-fw fa-pen"></i> Edit
             </button>';
     $btnDelete = '<button class="btn btn-xs btn-danger mx-1 shadow-sm" title="Hapus" data-toggle="modal" data-target="#modalHapus_'.$dataId.'">
                   <i class="fa fa-fw fa-trash"></i> Hapus
@@ -24,7 +24,7 @@ foreach ($datas as $data) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalSuntingLabel">Sunting Dokumen</h5>
+                    <h5 class="modal-title" id="modalSuntingLabel">Edit Ruangan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -96,7 +96,7 @@ $config = [
 
 @extends('adminlte::page')
 
-@section('title', 'Ruangan')
+@section('title', 'e-Sarpras | Ruangan')
 
 @section('content_header')
     <h1>Ruangan</h1>

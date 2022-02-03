@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Profile')
+@section('title', 'e-Sarpras | Profil')
 
 @section('content_header')
-    <h1>Profile</h1>
+    <h1>Profil</h1>
 @stop
 
 @section('content')
@@ -20,9 +20,9 @@
 
     <x-adminlte-card theme="success" theme-mode="outline">
         <div class="row">
-
             <div class="col-md-4 mt-3">
-                <div class="text-center border rounded position-relative" style="background-color:rgb(233,236,239);height:14.3rem; max-width:22rem;">
+                <label for="">Foto</label>
+                <div class="text-center border rounded position-relative shadow-sm" style="background-color:rgb(233,236,239);">
                     <img class="img img-thumbnail" src="{{ asset("/images/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
                 </div>
             </div>
@@ -70,12 +70,15 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-2 mt-2">
-                <div class="d-grid">
-                    <a href="/pengguna/{{ auth()->user()->id }}/edit" class='btn btn-success text-white shadow-sm'>Edit</a>
-                </div>
-            </div>
+        <div class="row">
+            <a href="{{ route('dashboard') }}" class="mr-auto">
+                <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button"
+                    class="btn-sm mt-3" />
+            </a>
+            <a href="/pengguna/{{ auth()->user()->id }}/edit" }}">
+                <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button"
+                    class="btn-sm mt-3" />
+            </a>
         </div>
     </x-adminlte-card>
 

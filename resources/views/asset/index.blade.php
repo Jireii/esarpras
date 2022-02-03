@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'e-Sarpras - Sarpras')
+@section('title', 'e-Sarpras | Sarpras')
 
 @section('content_header')
     <h1>Sarpras</h1>
@@ -23,6 +23,12 @@ $heads = [
 $query = [];
 $loop = 1;
 foreach ($datas as $data) {
+    if ($data->space_id == NULL) {
+        $ruangan = '-';
+    } else {
+        $ruangan = $data->space->nama;
+    };
+
     $btnDetail =
         '<a href=' .
         route('asset.detail', $data->id) .
@@ -39,7 +45,7 @@ foreach ($datas as $data) {
         $data->tahun_beli, //invisible
         $data->dana, //invisible
         $data->kondisi,
-        $data->space->nama, //invisible
+        $ruangan, //invisible
         '<nobr>'.$btnDetail.'</nobr>',
     ];
     $loop++;
@@ -48,7 +54,7 @@ $config = [
     'data' => $query,
     'order' => [[0, 'asc']],
     // 'columns' => [['className' => 'align-middle'], null, null, null, null, null, ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center d-none'], ['orderable' => false, 'className' => 'text-center']],
-    'columns' => [['className' => 'text-center'], null, null, null, null, null, ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'], ['className' => 'text-center'], ['orderable' => false, 'className' => 'text-center']],
+    'columns' => [['className' => 'text-center'], null, null, null, null, ['visible' => false], ['className' => 'text-center', 'visible' => false], ['className' => 'text-center', 'visible' => false], ['className' => 'text-center'], ['className' => 'text-center', 'visible' => false], ['orderable' => false, 'className' => 'text-center']],
     'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
 ];
 @endphp

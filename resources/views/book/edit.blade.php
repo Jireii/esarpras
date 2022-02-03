@@ -1,9 +1,17 @@
+@php
+if ($data->space_id == NULL) {
+    $ruangan = 'Pilih Ruangan';
+} else {
+    $ruangan = $data->space->nama;
+};
+@endphp
+
 @extends('adminlte::page')
 
-@section('title', 'Edit Buku')
+@section('title', 'e-Sarpras | Edit Buku')
 
 @section('content_header')
-    <h1>Edit Buku</h1>
+    <h1>Buku</h1>
 @stop
 
 @section('content')
@@ -12,7 +20,7 @@
             {{ session('status') }}
         </x-adminlte-alert>
     @endif
-    <x-adminlte-card title="Edit Buku {{ $data->judul }}" theme="success" theme-mode="outline">
+    <x-adminlte-card title="Edit Buku : {{ $data->judul }}" theme="success" theme-mode="outline">
         <form action="{{ route('book.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -33,8 +41,8 @@
                     value="{{ $data->tahun_beli }}" fgroup-class="col-md-2" disable-feedback />
                 <x-adminlte-input type="number" name="halaman" label="Jumlah Halaman" placeholder="Jumlah Halaman"
                     value="{{ $data->halaman }}" fgroup-class="col-md-2" disable-feedback />
-                <x-adminlte-input type="text" name="harga" label="Harga Buku" placeholder="{{ $data->harga }}"
-                    value="{{ $data->harga }}" fgroup-class="col-md-3" disable-feedback>
+                <x-adminlte-input type="rupiah" name="harga" label="Harga Buku" id="rupiah" placeholder="Harga"
+                    value="{{ number_format($data->harga, 0, '.', '.') }}" fgroup-class="col-md-3" disable-feedback>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <span class="fw-bold">Rp</span>
@@ -61,7 +69,7 @@
 
                 <x-adminlte-select name="space_id" label="Ruangan" placeholder="Ruangan" fgroup-class="col-md-3">
                     @foreach ($spaces as $space)
-                        <option value={{ $data->space_id }}>Pilih</option>
+                        <option value={{ $data->space_id }}>{{ $ruangan }}</option>
                         <option value={{ $space->id }}>{{ $space->nama }}</option>
                     @endforeach
                 </x-adminlte-select>
@@ -86,7 +94,7 @@
 <script type="text/javascript">
     var rupiah = document.getElementById('rupiah');
     rupiah.addEventListener('keyup', function(e) {
-        rupiah.value = formatRupiah(this.value, 'Rp. ');
+        rupiah.value = formatRupiah(this.value, '');
     });
 
     function formatRupiah(angka, prefix) {
@@ -102,7 +110,7 @@
         }
 
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        return prefix == undefined ? rupiah : (rupiah ? '' + rupiah : '');
     }
 </script>
 @stop

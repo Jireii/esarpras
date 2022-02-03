@@ -22,7 +22,7 @@ use GuzzleHttp\Middleware;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 // Sarpras
 Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');

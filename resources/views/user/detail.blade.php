@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'User')
+@section('title', 'e-Sarpras | Detail Pengguna')
 
 @section('content_header')
-    <h1>User</h1>
+    <h1>Pengguna</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,12 @@
     </x-adminlte-alert>
     @endif
 
-    <x-adminlte-card theme="success" theme-mode="outline">
+    <x-adminlte-card theme="success" theme-mode="outline" title="Detail Pengguna">
         <div class="row">
 
             <div class="col-md-4 mt-3">
-                <div class="text-center border rounded position-relative" style="background-color:rgb(233,236,239);height:14.3rem; max-width:22rem;">
+                <label for="" >Foto</label>
+                <div class="text-center border rounded position-relative shadow-sm" style="background-color:rgb(233,236,239);">
                     <img class="img img-thumbnail" src="{{ asset("/images/$user->gambar") }}" alt="Foto Profil" style="margin:auto; height:13.3rem; max-width:21rem;">
                 </div>
             </div>
@@ -66,13 +67,59 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-2 mt-2">
+        <div class="row">
+            {{-- <div class="col-md-2 mt-2">
                 <div class="d-grid">
-                    <a href="/users/{{ $user->id }}/edit" class='btn btn-success text-white shadow-sm'>Edit</a>
+                    <a href="/users/{{ $user->id }}/edit">
+                        <x-adminlte-button icon="fas fa-fw fa-edit" label="Sunting" theme="success" type="button"
+                            class="btn-sm mt-3" />
+                    </a>
                 </div>
+            </div> --}}
+
+            <a href="{{ route('user.list') }}" class="mr-auto">
+                <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button"
+                    class="btn-sm mt-3" />
+            </a>
+            <div class="opsi">
+                <button class="btn btn-danger btn-sm mt-3" title="Hapus" data-toggle="modal"
+                    data-target="#modalHapus_{{ $user->id }}">
+                    <i class="fa fa-fw fa-trash"></i> Hapus
+                </button>
+                <a href="{{ route('user.edit', $user->id) }}">
+                    <x-adminlte-button icon="fas fa-fw fa-edit" label="Sunting" theme="success" type="button"
+                        class="btn-sm mt-3" />
+                </a>
             </div>
         </div>
     </x-adminlte-card>
+
+    <div class="modal fade" id="modalHapus_{{ $user->id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Hapus Buku</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah anda yakin ingin menghapus pengguna
+                    {{ $user->nama }}
+                    ?
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('user.delete', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="mr-auto px-3 py-1 btn btn-secondary btn-sm" data-bs-dismiss="modal"
+                            data-dismiss="modal">Tidak</button>
+                        <button type="submit" class="px-3 py-1 btn btn-danger btn-sm">Ya</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @stop

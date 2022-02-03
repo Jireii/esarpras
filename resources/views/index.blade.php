@@ -26,7 +26,7 @@
                     </span>
                     <div class="info-box-content">
                         <span class="info-box-text">Petunjuk Penggunaan</span>
-                        <span class="info-box-number">Unduh</span>
+                        <span class="info-box-number">Klik di sini</span>
                     </div>
                 </div>
                 </a>

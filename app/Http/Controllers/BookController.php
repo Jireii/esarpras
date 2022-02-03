@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Space;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -74,6 +75,9 @@ class BookController extends Controller
         $book = Book::find($id);
 
         if ($request->hasFile('gambar')) {
+            $imageOld = '/images/'.$book->gambar;
+            File::delete(public_path($imageOld));
+
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->extension();
             $image->move(public_path('images'), $imageName);
@@ -98,7 +102,7 @@ class BookController extends Controller
         $book->space_id = $request->space_id;
 
         $book->save();
-        return redirect()->back()->with('status', 'Buku berhasil diperbarui');
+        return redirect('/buku/'.$book->id.'/detail')->with('status', 'Buku berhasil diperbarui.');
     }
 
     public function destroy($id)

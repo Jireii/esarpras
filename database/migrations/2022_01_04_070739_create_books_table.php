@@ -27,7 +27,7 @@ class CreateBooksTable extends Migration
             $table->integer('harga')->length(11)->default(0);;
             $table->enum('dana', ['BOS', 'BOSDA']);
             $table->enum('kondisi', ['Baik', 'Rusak']);
-            $table->foreignId('space_id')->references('id')->on('spaces')->length(20);
+            $table->foreignId('space_id')->nullable()->constrained();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();
         });

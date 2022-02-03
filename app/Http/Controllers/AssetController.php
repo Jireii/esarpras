@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use App\Models\Space;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 
 class AssetController extends Controller
 {
@@ -74,9 +76,20 @@ class AssetController extends Controller
         $input = Asset::find($id);
 
         if ($request->hasFile('gambar')) {
+            // $imageOldExt = $book->gambar;
+            // $imageOldExt = explode('.', $imageOldExt);
+            // $imageOldExt = $imageOldExt[1];
+            // dd($imageOldExt);
+            // $imageOld = '/images/'.$input->gambar.$imageOldExt;      // bruh im so dumb.
+            if ($input->gambar !== 'default_asset.png') {
+                $imageOld = '/images/'.$input->gambar;
+                File::delete(public_path($imageOld));
+            }
+
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('images'), $imageName);
+            $img = Image::make($image);
+            $img->save(public_path("images/$imageName"), 20, 'jpg');
             $input->gambar = $imageName;
         } else {
             $input->gambar = $input->gambar;
@@ -86,14 +99,15 @@ class AssetController extends Controller
         $input->merk = $request->merk;
         $input->tipe = $request->tipe;
         $input->register = $request->register;
-        $input->harga = $request->harga;
+        $harga = str_replace('.', '', $request->harga);
+        $input->harga = $harga;
         $input->tahun_beli = $request->tahun_beli;
         $input->dana = $request->dana;
         $input->space_id = $request->space_id;
 
         $input->save();
 
-        return redirect()->back()->with('status', 'Sarpras berhasil diperbarui');
+        return redirect('/sarpras/'.$input->id.'/detail')->with('status', 'Sarpras berhasil diperbarui.');
     }
 
     public function destroy($id)

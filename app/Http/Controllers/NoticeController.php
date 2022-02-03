@@ -12,7 +12,7 @@ class NoticeController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         // if (auth()->user()->role !== 'super') {
@@ -37,6 +37,7 @@ class NoticeController extends Controller
 
         // $input->user_id = Auth::user()->id;
         $input->isi = $request->isi;
+        $input->user_id = Auth::user()->id;
         $input->save();
 
         return redirect()->back()->with('status', 'Berhasil menambah pemberitahuan "'.$request->isi.'".');

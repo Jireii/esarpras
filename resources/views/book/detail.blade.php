@@ -1,9 +1,16 @@
+@php
+    if ($data->space_id == NULL) {
+        $ruangan = '-';
+    } else {
+        $ruangan = $data->space->nama;
+    };
+@endphp
 @extends('adminlte::page')
 
-@section('title', 'Detail Buku')
+@section('title', 'e-Sarpras | Detail Buku')
 
 @section('content_header')
-    <h1>Detail Buku</h1>
+    <h1>Buku</h1>
 @stop
 
 @section('content')
@@ -12,13 +19,15 @@
             {{ session('status') }}
         </x-adminlte-alert>
     @endif
-    <x-adminlte-card title="Detail Buku {{ $data->judul }}" theme="success" theme-mode="outline">
-        <div class="col-lg-2">
-            <div class="mb-3 form-input">
-                <label for="" class="mb-1 fw-bold"> Image</label>
-                <div class="input-group">
-                    <img src=" {{ asset('images/') }}/{{ $data->gambar }}" class="img-thumbnail" alt="..." height="100%"
-                        width="100%">
+    <x-adminlte-card title="Detail Buku" theme="success" theme-mode="outline">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="mb-3 form-input">
+                    <label for="" class="mb-1 fw-bold"> Gambar</label>
+                    <div class="input-group">
+                        <img src=" {{ asset('images/') }}/{{ $data->gambar }}" class="img-thumbnail" alt="..." height="100%"
+                            width="100%">
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,7 +48,7 @@
                 value="{{ $data->tahun_beli }}" fgroup-class="col-md-2" disable-feedback disabled />
             <x-adminlte-input type="number" name="halaman" label="Jumlah Halaman" placeholder="Jumlah Halaman"
                 value="{{ $data->halaman }}" fgroup-class="col-md-2" disable-feedback disabled />
-            <x-adminlte-input type="harga" name="harga" label="Harga Buku" placeholder="Harga" id="rupiah"
+            <x-adminlte-input type="harga" name="harga" label="Harga" placeholder="Harga" id="rupiah"
                 value="{{ number_format($data->harga, 0, '.', '.') }}" fgroup-class="col-md-3" disable-feedback disabled>
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
@@ -56,7 +65,7 @@
             </x-adminlte-select>
 
             <x-adminlte-select name="space_id" label="Ruangan" placeholder="Ruangan" fgroup-class="col-md-3" disabled>
-                <option value={{ $data->space_id }}>{{ $data->space->nama }}</option>
+                <option value={{ $data->space_id }}>{{ $ruangan }}</option>
             </x-adminlte-select>
         </div>
         <div class="row">
@@ -70,7 +79,7 @@
                     <i class="fa fa-fw fa-trash"></i> Hapus
                 </button>
                 <a href="{{ route('book.edit', $data->id) }}">
-                    <x-adminlte-button icon="fas fa-fw fa-edit" label="Sunting" theme="success" type="button"
+                    <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button"
                         class="btn-sm mt-3" />
                 </a>
             </div>
