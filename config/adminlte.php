@@ -260,10 +260,15 @@ return [
         ],
         [
             'text' => 'Pengguna',
-            'url'  => '/pengguna',
+            'url'  => '/users',
             'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'PENGATURAN'],
+        [
+            'text' => 'Profil',
+            'url'  => '/pengguna',
+            'icon' => 'fas fa-fw fa-user',
+        ],
         [
             'text'       => 'Pemberitahuan',
             'icon' => 'fas fa-fw fa-comment',

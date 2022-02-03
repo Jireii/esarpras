@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'User Log History')
+@section('title', 'Riwayat Login Pengguna')
     
 @section('content_header')
-    <h1>User Log History</h1>
+    <h1>Riwayat Login Pengguna</h1>
 @stop
 
 @php
