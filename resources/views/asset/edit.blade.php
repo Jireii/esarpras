@@ -8,10 +8,10 @@ if ($data->space_id == NULL) {
 
 @extends('adminlte::page')
 
-@section('title', 'e-Sarpras | Edit Buku')
+@section('title', 'e-Sarpras | Edit Sarpras')
 
 @section('content_header')
-    <h1>Buku</h1>
+    <h1>Sarpas</h1>
 @stop
 
 @section('content')
@@ -20,36 +20,31 @@ if ($data->space_id == NULL) {
             {{ session('status') }}
         </x-adminlte-alert>
     @endif
-    <x-adminlte-card title="Edit Buku : {{ $data->judul }}" theme="success" theme-mode="outline">
-        <form action="{{ route('book.update', $data->id) }}" method="POST" enctype="multipart/form-data">
+    <x-adminlte-card title="Edit Sarpras : {{ $data->nama }}" theme="success" theme-mode="outline">
+        <form action="{{ route('asset.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
-                <x-adminlte-input name="judul" label="Judul" placeholder="Judul" value="{{ $data->judul }}"
+                <x-adminlte-input name="nama" label="Nama" placeholder="Nama Sarpras" value="{{ $data->nama }}"
                     fgroup-class="col-md-4" disable-feedback />
-                <x-adminlte-input name="nomor_buku" label="Nomor ISBN/ISSN" placeholder="Nomor ISBN/ISSN"
-                    value="{{ $data->nomor_buku }}" fgroup-class="col-md-4" disable-feedback />
+                <x-adminlte-input name="tipe" label="Tipe" placeholder="Tipe Sarpras"
+                    value="{{ $data->tipe }}" fgroup-class="col-md-4" disable-feedback />
+                <x-adminlte-input name="merk" label="Merk" placeholder="Merk Sarpras"
+                    value="{{ $data->merk }}" fgroup-class="col-md-4" disable-feedback />
                 <x-adminlte-input name="register" label="Nomor Register" placeholder="Nomor Register"
                     value="{{ $data->register }}" fgroup-class="col-md-4" disable-feedback />
-                <x-adminlte-input name="pengarang" label="Pengarang" placeholder="Pengarang"
-                    value="{{ $data->pengarang }}" fgroup-class="col-md-4" disable-feedback />
-                <x-adminlte-input name="penerbit" label="Penerbit" placeholder="Penerbit" value="{{ $data->penerbit }}"
-                    fgroup-class="col-md-4" disable-feedback />
-                <x-adminlte-input type="number" name="tahun_terbit" label="Tahun Terbit" placeholder="Tahun Terbit"
-                    value="{{ $data->tahun_terbit }}" fgroup-class="col-md-2" disable-feedback />
                 <x-adminlte-input type="number" name="tahun_beli" label="Tahun Pembelian" placeholder="Tahun Pembelian"
-                    value="{{ $data->tahun_beli }}" fgroup-class="col-md-2" disable-feedback />
-                <x-adminlte-input type="number" name="halaman" label="Jumlah Halaman" placeholder="Jumlah Halaman"
-                    value="{{ $data->halaman }}" fgroup-class="col-md-2" disable-feedback />
-                <x-adminlte-input type="rupiah" name="harga" label="Harga Buku" id="rupiah" placeholder="Harga"
-                    value="{{ number_format($data->harga, 0, '.', '.') }}" fgroup-class="col-md-3" disable-feedback>
+                    value="{{ $data->tahun_beli }}" fgroup-class="col-md-4" disable-feedback />
+                <x-adminlte-input type="rupiah" name="harga" label="Harga " id="rupiah" placeholder="Harga"
+                    value="{{ number_format($data->harga, 0, '.', '.') }}" fgroup-class="col-md-4"
+                    onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);" disable-feedback>
                     <x-slot name="prependSlot">
                         <div class="input-group-text">
                             <span class="fw-bold">Rp</span>
                         </div>
                     </x-slot>
                 </x-adminlte-input>
-                <x-adminlte-select name="dana" label="Sumber Dana" placeholder="Sumber Dana" fgroup-class="col-md-2">
+                <x-adminlte-select name="dana" label="Sumber Dana" placeholder="Sumber Dana" fgroup-class="col-md-3">
                     <option value={{ $data->dana }}>{{ $data->dana }}</option>
                     @if ($data->dana != 'BOS')
                         <option value="BOS">BOS</option>
@@ -57,7 +52,7 @@ if ($data->space_id == NULL) {
                         <option value="BOSDA">BOSDA</option>
                     @endif
                 </x-adminlte-select>
-                <x-adminlte-select name="kondisi" label="Kondisi" placeholder="Kondisi" fgroup-class="col-md-2">
+                <x-adminlte-select name="kondisi" label="Kondisi" placeholder="Kondisi" fgroup-class="col-md-3">
                     <option value={{ $data->kondisi }}>{{ $data->kondisi }}</option>
                     @if ($data->kondisi != 'Baik')
                         <option value="Baik">Baik</option>
@@ -68,19 +63,22 @@ if ($data->space_id == NULL) {
                 </x-adminlte-select>
 
                 <x-adminlte-select name="space_id" label="Ruangan" placeholder="Ruangan" fgroup-class="col-md-3">
+                    <option value={{ $data->space_id }}>{{ $ruangan }}</option>
                     @foreach ($spaces as $space)
-                        <option value={{ $data->space_id }}>{{ $ruangan }}</option>
                         <option value={{ $space->id }}>{{ $space->nama }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-input type="file" name="gambar" label="Gambar Buku" placeholder="Gambar Buku"
+                <x-adminlte-input type="file" name="gambar" label="Gambar" placeholder="Gambar Buku"
                     value="{{ $data->gambar }}" fgroup-class="col-md" disable-feedback />
             </div>
-            <div class="row">
-                <a href="{{ route('book') }}" class="mr-auto">
-                    <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button" class="btn-sm mt-3"/>
-                </a>
-                <x-adminlte-button icon="fas fa-fw fa-edit" label="Perbarui" theme="success" type="submit" class="btn-sm mt-3"/>
+            <div class="row mt-3">
+                    <a href="{{ route('asset.detail', $data->id) }}" class="mr-auto">
+                        <button class="btn btn-sm btn-secondary" type="button">
+                            <i class="fas fa-fw fa-arrow-left"></i>
+                            Kembali
+                        </button>
+                    </a>
+                    <x-adminlte-button class="btn btn-sm" type="submit" label=" Perbarui" theme="success" icon="fas fa-fw fa-save" />
             </div>
         </form>
     </x-adminlte-card>

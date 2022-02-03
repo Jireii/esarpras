@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBooksTable extends Migration
+class CreateAssetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreateBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
-            $table->string('gambar')->default('default_book.png');
-            $table->string('nomor_buku')->nullable();
-            $table->string('pengarang');
-            $table->string('penerbit');
-            $table->year('tahun_terbit');
-            $table->integer('halaman')->length(11)->nullable();
+            $table->string('nama');
+            $table->string('gambar')->default('default_asset.png');
+            $table->string('merk')->nullable();
+            $table->string('tipe');
             $table->string('register')->nullable();
+            $table->integer('harga')->default(0);
             $table->year('tahun_beli')->nullable();
-            $table->integer('harga')->length(11)->default(0);;
-            $table->enum('dana', ['BOS', 'BOSDA']);
+            $table->enum('dana', ['BOS', 'BOSDA'])->nullable();
             $table->enum('kondisi', ['Baik', 'Rusak']);
             $table->foreignId('space_id')->nullable()->constrained();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
@@ -40,6 +37,6 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('assets');
     }
 }

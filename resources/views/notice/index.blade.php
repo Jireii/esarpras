@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Pemberitahuan')
+@section('title', 'e-Sarpras | Pemberitahuan')
 
 @section('content_header')
     <h1>Pemberitahuan</h1>
@@ -9,7 +9,7 @@
 @php
 $heads = [
     ['label' => 'No', 'width' => 1],
-    'Nama',
+    'Oleh',
     'Isi',
     ['label' => 'Opsi', 'no-export' => true, 'width' => 5],
 ];
@@ -19,7 +19,7 @@ foreach ($datas as $data) {
     $dataId = $data->id;
     $dataIsi = $data->isi;
     $btnEdit = '<button class="btn btn-xs btn-success mx-1 shadow-sm" title="Edit" data-toggle="modal" data-target="#modalSunting_'.$dataId.'">
-                <i class="fa fa-fw fa-pen"></i> Sunting
+                <i class="fa fa-fw fa-pen"></i> Edit
             </button>';
     $btnDelete = '<button class="btn btn-xs btn-danger mx-1 shadow-sm" title="Hapus" data-toggle="modal" data-target="#modalHapus_'.$dataId.'">
                   <i class="fa fa-fw fa-trash"></i> Hapus
@@ -29,7 +29,7 @@ foreach ($datas as $data) {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalSuntingLabel">Sunting Dokumen</h5>
+                    <h5 class="modal-title" id="modalSuntingLabel">Edit Pemberitahuan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -77,10 +77,16 @@ foreach ($datas as $data) {
         </div>
     </div>';
 
+    if ($data->user_id == NULL) {
+            $oleh = '-';
+    } else {
+            $oleh = $data->user->nama;
+    };
+
     $query[]=[
         $loop,
         // @dd($loop),
-        $data->user_id,
+        $oleh,
         $data->isi,
         '<nobr>'.$btnEdit.$btnDelete.'</nobr>',
     ];

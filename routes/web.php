@@ -3,10 +3,12 @@
 use App\Http\Controllers\BookController;
 use App\Models\Space;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\DashboardController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -20,9 +22,16 @@ use GuzzleHttp\Middleware;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+// Sarpras
+Route::get('/sarpras', [AssetController::class, 'index'])->name('asset');
+Route::get('/sarpras/create', [AssetController::class, 'add'])->name('asset.add');
+route::post('/sarpras/store', [AssetController::class, 'store'])->name('asset.store');
+Route::get('/sarpras/{asset:id}/detail', [AssetController::class, 'detail'])->name('asset.detail');
+Route::get('/sarpras/{asset:id}/edit', [AssetController::class, 'edit'])->name('asset.edit');
+Route::put('/sarpras/{asset:id}/update', [AssetController::class, 'update'])->name('asset.update');
+Route::delete('/sarpras/{asset:id}/delete', [AssetController::class, 'destroy'])->name('asset.destroy');
 
 // Ruangan
 Route::get('/ruangan', [SpaceController::class, 'index'])->name('space');
@@ -46,9 +55,9 @@ Route::post('/pemberitahuan/{notice:id}/edit', [NoticeController::class, 'edit']
 Route::delete('/pemberitahuan/{notice:id}/delete', [NoticeController::class, 'destroy'])->name('notice.destroy');
 
 // Profile
-Route::get('/pengguna', [UserController::class, 'index'])->name('profile');
-Route::get('/pengguna/{user:id}/edit', [AuthController::class, 'edit'])->name('profile.edit');
-Route::put('/pengguna/{user:id}/edit', [AuthController::class, 'update'])->name('profile.update');
+Route::get('/profil', [UserController::class, 'index'])->name('profile');
+Route::get('/profil/{user:id}/edit', [AuthController::class, 'edit'])->name('profile.edit');
+Route::put('/profil/{user:id}/edit', [AuthController::class, 'update'])->name('profile.update');
 
 // Login
 Route::get('/login', [AuthController::class, 'getLogin'])->middleware('guest')->name('login');
@@ -56,11 +65,11 @@ Route::post('/login', [AuthController::class, 'postLogin'])->name('login.store')
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // User
-Route::get('/users', [UserController::class, 'userlist'])->name('user.list');
-Route::get('/users/{user:id}', [UserController::class, 'details'])->name('user.detail');
-Route::get('/users/{user:id}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/users/{user:id}/edit', [UserController::class, 'update'])->name('user.patch');
-Route::delete('/users/{user:id}/delete', [UserController::class, 'destroy'])->name('user.delete');
+Route::get('/pengguna', [UserController::class, 'userlist'])->name('user.list');
+Route::get('/pengguna/{user:id}', [UserController::class, 'details'])->name('user.detail');
+Route::get('/pengguna/{user:id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/pengguna/{user:id}/edit', [UserController::class, 'update'])->name('user.patch');
+Route::delete('/pengguna/{user:id}/delete', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register.store');
 

@@ -15,7 +15,7 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->text('isi');
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();

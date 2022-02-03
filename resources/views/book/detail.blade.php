@@ -1,9 +1,16 @@
+@php
+    if ($data->space_id == NULL) {
+        $ruangan = '-';
+    } else {
+        $ruangan = $data->space->nama;
+    };
+@endphp
 @extends('adminlte::page')
 
-@section('title', 'Detail Buku')
+@section('title', 'e-Sarpras | Detail Buku')
 
 @section('content_header')
-    <h1>Detail Buku</h1>
+    <h1>Buku</h1>
 @stop
 
 @section('content')
@@ -12,13 +19,15 @@
             {{ session('status') }}
         </x-adminlte-alert>
     @endif
-    <x-adminlte-card title="Detail Buku {{ $data->judul }}" theme="success" theme-mode="outline">
-        <div class="col-lg-2">
-            <div class="mb-3 form-input">
-                <label for="" class="mb-1 fw-bold"> Image</label>
-                <div class="input-group">
-                    <img src=" {{ asset('images/') }}/{{ $data->gambar }}" class="img-thumbnail" alt="..." height="100%"
-                        width="100%">
+    <x-adminlte-card title="Detail Buku" theme="success" theme-mode="outline">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="mb-3 form-input">
+                    <label for="" class="mb-1 fw-bold"> Gambar</label>
+                    <div class="input-group">
+                        <img src=" {{ asset('images/') }}/{{ $data->gambar }}" class="img-thumbnail" alt="..." height="100%"
+                            width="100%">
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,43 +48,39 @@
                 value="{{ $data->tahun_beli }}" fgroup-class="col-md-2" disable-feedback disabled />
             <x-adminlte-input type="number" name="halaman" label="Jumlah Halaman" placeholder="Jumlah Halaman"
                 value="{{ $data->halaman }}" fgroup-class="col-md-2" disable-feedback disabled />
-            <x-adminlte-input type="number" name="harga" label="Harga Buku" placeholder="Harga"
-                value="{{ $data->harga }}" fgroup-class="col-md-4" disable-feedback disabled>
+            <x-adminlte-input type="harga" name="harga" label="Harga" placeholder="Harga" id="rupiah"
+                value="{{ number_format($data->harga, 0, '.', '.') }}" fgroup-class="col-md-3" disable-feedback disabled>
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
                         <span class="fw-bold">Rp</span>
                     </div>
                 </x-slot>
             </x-adminlte-input>
-            <x-adminlte-select name="dana" label="Sumber Dana" placeholder="Sumber Dana" fgroup-class="col-md-1"
+            <x-adminlte-select name="dana" label="Sumber Dana" placeholder="Sumber Dana" fgroup-class="col-md-2"
                 disabled>
                 <option value={{ $data->dana }}>{{ $data->dana }}</option>
             </x-adminlte-select>
-            <x-adminlte-select name="kondisi" label="Kondisi" placeholder="Kondisi" fgroup-class="col-md-1" disabled>
+            <x-adminlte-select name="kondisi" label="Kondisi" placeholder="Kondisi" fgroup-class="col-md-2" disabled>
                 <option value={{ $data->kondisi }}>{{ $data->kondisi }}</option>
             </x-adminlte-select>
 
-            <x-adminlte-select name="space_id" label="Ruangan" placeholder="Ruangan" fgroup-class="col-md-4" disabled>
-                <option value={{ $data->space_id }}>{{ $data->space->nama }}</option>
+            <x-adminlte-select name="space_id" label="Ruangan" placeholder="Ruangan" fgroup-class="col-md-3" disabled>
+                <option value={{ $data->space_id }}>{{ $ruangan }}</option>
             </x-adminlte-select>
         </div>
-        <div class="row mt-3">
-            <div class="col-lg-8">
-                <a href="{{ route('book.edit', $data->id) }}">
-                    <button class="btn btn-success" type="button">
-                        <i class="fas fa-lg fa-edit"></i>
-                        Sunting
-                    </button>
-                </a>
-                <button class="btn btn-danger " title="Hapus" data-toggle="modal"
+        <div class="row">
+            <a href="{{ route('book') }}" class="mr-auto">
+                <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button"
+                    class="btn-sm mt-3" />
+            </a>
+            <div class="opsi">
+                <button class="btn btn-danger btn-sm mt-3" title="Hapus" data-toggle="modal"
                     data-target="#modalHapus_{{ $data->id }}">
                     <i class="fa fa-fw fa-trash"></i> Hapus
                 </button>
-                <a href="{{ route('book') }}">
-                    <button class="btn btn-secondary" type="button">
-                        <i class="fas fa-lg fa-arrow-left"></i>
-                        Kembali
-                    </button>
+                <a href="{{ route('book.edit', $data->id) }}">
+                    <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button"
+                        class="btn-sm mt-3" />
                 </a>
             </div>
         </div>
@@ -114,8 +119,28 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+
 @section('js')
-    <script>
-        console.log('Hi!');
-    </script>
+<script type="text/javascript">
+    var rupiah = document.getElementById('rupiah');
+    rupiah.addEventListener('keyup', function(e) {
+        rupiah.value = formatRupiah(this.value, 'Rp. ');
+    });
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+</script>
 @stop

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Riwayat Login Pengguna')
-    
+@section('title', 'e-Sarpras | Riwayat Pengguna')
+
 @section('content_header')
-    <h1>Riwayat Login Pengguna</h1>
+    <h1>Riwayat Pengguna</h1>
 @stop
 
 @php
@@ -20,7 +20,7 @@
     foreach ($datas as $key => $data) {
         $dataId = $data->id;
         $dataNama = $data->log->nama;
-        
+
         $query[] = [$x, $dataNama, $data->ip, $data->device, $data->last_login];
         $x++;
         // var_dump($modalHapus);die;
@@ -29,10 +29,10 @@
         'data' => $query,
         'order' => [[0, 'asc']],
         'columns' => [
-            ['className' => 'text-center'], 
-            ['className' => 'text-center'], 
-            ['className' => 'text-center'],  
-            ['className' => 'text-center'], 
+            ['className' => 'text-center'],
+            ['className' => 'text-center'],
+            ['className' => 'text-center'],
+            ['className' => 'text-center'],
             ['orderable' => false, 'className' => 'text-center']],
         'language' => ['url' => 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/id.json'],
     ];

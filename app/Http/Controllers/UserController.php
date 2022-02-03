@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Auth\Events\Login;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(User $user)
     {
         return view('user.index', [
@@ -76,7 +77,7 @@ class UserController extends Controller
             }
             $gambar = $request->file('gambar');
             $file_name = time() . '_' . $gambar->getClientOriginalName();
-            $img = \Image::make($gambar);
+            $img = Image::make($gambar);
             $img->save(\public_path("img/$file_name"), 20, 'jpg');
             $validatedData['gambar'] = $file_name;
         }
@@ -95,6 +96,6 @@ class UserController extends Controller
         $nama = $data->nama;
         $data->delete();
 
-        return redirect('/users')->with('status', 'Berhasil menghapus user '.$nama.'.');
+        return redirect('/pengguna')->with('status', 'Berhasil menghapus user '.$nama.'.');
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use view;
 use App\Models\Book;
 use App\Models\Space;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -43,6 +45,8 @@ class BookController extends Controller
             $book->gambar = 'default_book.png';
         }
 
+        $rp = (int)str_replace([',', '.', 'Rp', ' '], '', $request->harga);
+
         $book->judul = $request->judul;
         $book->nomor_buku = $request->nomor_buku;
         $book->pengarang = $request->pengarang;
@@ -51,7 +55,7 @@ class BookController extends Controller
         $book->halaman = $request->halaman;
         $book->register = $request->register;
         $book->tahun_beli = $request->tahun_beli;
-        $book->harga = $request->harga;
+        $book->harga = $rp;
         $book->dana = $request->dana;
         $book->kondisi = $request->kondisi;
         $book->space_id = $request->space_id;
@@ -71,6 +75,9 @@ class BookController extends Controller
         $book = Book::find($id);
 
         if ($request->hasFile('gambar')) {
+            $imageOld = '/images/'.$book->gambar;
+            File::delete(public_path($imageOld));
+
             $image = $request->file('gambar');
             $imageName = time() . '.' . $image->extension();
             $image->move(public_path('images'), $imageName);
@@ -78,6 +85,8 @@ class BookController extends Controller
         } else {
             $book->gambar = $book->gambar;
         }
+
+        $rp = (int)str_replace([',', '.', 'Rp', ' '], '', $request->harga);
 
         $book->judul = $request->judul;
         $book->nomor_buku = $request->nomor_buku;
@@ -87,13 +96,13 @@ class BookController extends Controller
         $book->halaman = $request->halaman;
         $book->register = $request->register;
         $book->tahun_beli = $request->tahun_beli;
-        $book->harga = $request->harga;
+        $book->harga = $rp;
         $book->dana = $request->dana;
         $book->kondisi = $request->kondisi;
         $book->space_id = $request->space_id;
 
         $book->save();
-        return redirect()->back()->with('status', 'Buku berhasil diperbarui');
+        return redirect('/buku/'.$book->id.'/detail')->with('status', 'Buku berhasil diperbarui.');
     }
 
     public function destroy($id)

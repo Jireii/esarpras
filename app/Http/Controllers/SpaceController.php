@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Asset;
 use App\Models\Space;
 use Illuminate\Http\Request;
 
@@ -11,7 +13,7 @@ class SpaceController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         // $role = Auth::user()->role;
@@ -62,6 +64,30 @@ class SpaceController extends Controller
         // }
 
         $input = Space::find($id);
+
+        $assets = Asset::all();
+        $books = Book::all();
+        foreach($assets as $asset)
+        {
+            if ($asset->space_id == $id)
+            {
+                    $change = Asset::find($asset->id);
+                    $change->space_id = null;
+                    // dd($change->space_id);
+                    $change->update();
+            }
+        }
+        foreach($books as $book)
+        {
+            if ($book->space_id == $id)
+            {
+                    $change = Book::find($asset->id);
+                    $change->space_id = null;
+                    // dd($change->space_id);
+                    $change->update();
+            }
+        }
+
         $nama = $input->nama;
         $input->delete();
 
