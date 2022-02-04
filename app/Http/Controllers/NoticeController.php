@@ -15,9 +15,9 @@ class NoticeController extends Controller
 
     public function index()
     {
-        // if (auth()->user()->role !== 'super') {
-        //     abort(403);
-        // }
+        if (auth()->user()->role !== 'Superuser') {
+            abort(403);
+        }
 
         $datas = Notice::all();
 
@@ -29,9 +29,9 @@ class NoticeController extends Controller
 
     public function store(Request $request)
     {
-        // if (auth()->user()->role == 'guest') {
-        //     abort(403);
-        // }
+        if (auth()->user()->role !== 'Superuser') {
+            abort(403);
+        }
 
         $input = new Notice;
 
@@ -45,9 +45,9 @@ class NoticeController extends Controller
 
     public function edit(Request $request, $id)
     {
-        // if (auth()->user()->role == 'guest') {
-        //     abort(403);
-        // }
+        if (auth()->user()->role !== 'Superuser') {
+            abort(403);
+        }
 
         $token = $request->session()->token();
         $token = csrf_token();
@@ -63,9 +63,9 @@ class NoticeController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        // if (auth()->user()->role == 'guest') {
-        //     abort(403);
-        // }
+        if (auth()->user()->role !== 'Superuser') {
+            abort(403);
+        }
 
         $token = $request->session()->token();
         $token = csrf_token();

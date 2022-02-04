@@ -13,8 +13,8 @@
         'NIK',
         'Jabatan',
         'Role',
-        'Last Login Time',
-        'Last Login IP',
+        'Terakhir Login',
+        'IP Login Terakhir',
         ['label' => 'Opsi', 'no-export' => true, 'width' => 5],
     ];
 

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\LogHistory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Image;
-use Carbon\Carbon;
+use Intervention\Image\Facades\Image;
 
 class AuthController extends Controller
 {
@@ -49,14 +49,17 @@ class AuthController extends Controller
 
     public function getRegister()
     {
-        // if(auth()->user()->role !== 'Superuser') {
-        //     return redirect('/');
-        // }
+        if(auth()->user()->role !== 'Superuser') {
+            return redirect('/');
+        }
         return view('auth.register');
     }
 
     public function postRegister(Request $request)
     {
+        if(auth()->user()->role !== 'Superuser') {
+            return redirect('/');
+        }
         $validatedData = $request->validate([
             'username' => 'required|unique:users|min:3',
             'password' => 'required|min:3',
@@ -90,13 +93,21 @@ class AuthController extends Controller
 
     public function edit(User $user)
     {
-        return view('auth.edit', [
-            'user' => $user
-        ]);
+        if(auth()->user()->role !== 'Superuser') {
+            return redirect('/');
+        }
+        {
+            return view('auth.edit', [
+                'user' => $user
+            ]);
+        }
     }
 
     public function update(Request $request, User $user)
     {
+        if(auth()->user()->role !== 'Superuser') {
+            return redirect('/');
+        }
          $rules = [
             'nama' => 'required',
             'nik' => 'max:16',
@@ -117,7 +128,7 @@ class AuthController extends Controller
             }
             $gambar = $request->file('gambar');
             $file_name = time() . '_' . $gambar->getClientOriginalName();
-            $img = \Image::make($gambar);
+            $img = Image::make($gambar);
             $img->save(\public_path("images/$file_name"), 20, 'jpg');
             $validatedData['gambar'] = $file_name;
         }
@@ -154,6 +165,9 @@ class AuthController extends Controller
 
     public function loghistory(LogHistory $logHistory)
     {
+        if(auth()->user()->role !== 'Superuser') {
+            return redirect('/');
+        }
         return view('auth.loghistory', [
             'datas' => $logHistory->all()
         ]);

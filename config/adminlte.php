@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+
 return [
 
     /*
@@ -46,8 +49,8 @@ return [
     */
 
     'logo' => 'e-<b>Sarpras</b>',
-    'logo_img' => '',
-    'logo_img_class' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'e-Sarpras',
@@ -257,33 +260,17 @@ return [
             'text' => 'Ruangan',
             'url'  => '/ruangan',
             'icon' => 'fas fa-fw fa-home',
+            'key' => 'ruangan',
         ],
-        [
-            'text' => 'Pengguna',
-            'url'  => '/pengguna',
-            'icon' => 'fas fa-fw fa-users',
-        ],
+        // Menu Pengguna
         ['header' => 'PENGATURAN'],
         [
             'text' => 'Profil',
             'url'  => '/profil',
             'icon' => 'fas fa-fw fa-user',
+            'key' => 'profil',
         ],
-        [
-            'text'       => 'Pemberitahuan',
-            'icon' => 'fas fa-fw fa-comment',
-            'url'        => '/pemberitahuan',
-        ],
-        [
-            'text'       => 'Pengaturan PDF',
-            'icon' => 'fas fa-fw fa-cog',
-            'url'        => '/pengaturanpdf',
-        ],
-        [
-            'text'       => 'Riwayat Pengguna',
-            'icon' => 'fas fa-fw fa-history',
-            'url'        => '/riwayatpengguna',
-        ],
+        // Menu Pemberitahuan, Pengaturan PDF, Riwayat Pengguna
     ],
 
     /*
@@ -490,3 +477,33 @@ return [
 
     'livewire' => false,
 ];
+
+if (Auth::user()->role == 'Superuser')
+{
+    $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+
+        $event->menu->addAfter('ruangan',
+        [
+            'text' => 'Pengguna',
+            'url'  => '/pengguna',
+            'icon' => 'fas fa-fw fa-users',
+        ]);
+
+        $event->menu->addAfter('profil',
+        [
+            'text'       => 'Pemberitahuan',
+            'icon' => 'fas fa-fw fa-comment',
+            'url'        => '/pemberitahuan',
+        ],
+        [
+            'text'       => 'Pengaturan PDF',
+            'icon' => 'fas fa-fw fa-cog',
+            'url'        => '/pengaturanpdf',
+        ],
+        [
+            'text'       => 'Riwayat Pengguna',
+            'icon' => 'fas fa-fw fa-history',
+            'url'        => '/riwayatpengguna',
+        ]);
+    });
+}
