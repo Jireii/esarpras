@@ -87,7 +87,7 @@ class UserController extends Controller
 
         User::where('id', auth()->user()->id)->update($validatedData);
 
-        return redirect("/users/" . auth()->user()->id)->with('success', 'Edit user berhasil!');
+        return redirect("/pengguna/" . auth()->user()->id)->with('success', 'Edit user berhasil!');
     }
 
     public function destroy($id)

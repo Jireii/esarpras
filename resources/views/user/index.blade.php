@@ -75,7 +75,7 @@
                 <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button"
                     class="btn-sm mt-3" />
             </a>
-            <a href="/pengguna/{{ auth()->user()->id }}/edit" }}">
+            <a href="/profil/{{ auth()->user()->id }}/edit" }}">
                 <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button"
                     class="btn-sm mt-3" />
             </a>

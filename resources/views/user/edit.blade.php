@@ -11,7 +11,7 @@
     <x-adminlte-card theme="success" theme-mode="outline"  title="Edit Pengguna : {{ $user->nama }}">
 
 
-            <form action="/users/{{ $user->id }}/edit route('user.edit'), $user->id" method="post" enctype="multipart/form-data">
+            <form action="{{ route('user.patch', $user->id) }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <input type="hidden" name="id" value="{{ $user->id }}">

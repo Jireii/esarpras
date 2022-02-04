@@ -141,26 +141,26 @@ class AuthController extends Controller
 
             if (password_verify($passlama, $currentpasshash)) {
                 if($passbaru1 == '' && $passbaru2 == '') {
-                    return redirect("/pengguna/" . auth()->user()->id . "/edit")->with('failed', 'Password yang baru tidak kosong!');
+                    return redirect("/profil/" . auth()->user()->id . "/edit")->with('failed', 'Password yang baru tidak kosong!');
                 } else {
                     if ($passbaru1 === $passbaru2 ) {
                         $passbaru2 = password_hash($passbaru2, PASSWORD_DEFAULT);
 
                         User::where('id', auth()->user()->id)->update($validatedData);
 
-                        return redirect("/pengguna")->with('success', 'Password berhasil diganti!');
+                        return redirect("/profil")->with('success', 'Password berhasil diganti!');
                     } else {
-                        return redirect("/pengguna/" . auth()->user()->id . "/edit")->with('failed', 'Password yang dimasukkan tidak sama!');
+                        return redirect("/profil/" . auth()->user()->id . "/edit")->with('failed', 'Password yang dimasukkan tidak sama!');
                     }
                 }
             } else {
-                return redirect("/pengguna/" . auth()->user()->id . "/edit")->with('failed', 'Password yang lama salah!');
+                return redirect("/profil/" . auth()->user()->id . "/edit")->with('failed', 'Password yang lama salah!');
             }
         }
 
         User::where('id', auth()->user()->id)->update($validatedData);
 
-        return redirect("/pengguna")->with('success', 'Edit Profile berhasil!');
+        return redirect("/profil")->with('success', 'Edit Profile berhasil!');
     }
 
     public function loghistory(LogHistory $logHistory)
