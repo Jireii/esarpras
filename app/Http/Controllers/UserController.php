@@ -18,9 +18,6 @@ class UserController extends Controller
 
     public function index(User $user)
     {
-        if (auth()->user()->role !== 'Superuser') {
-            abort(403);
-        }
         return view('user.index', [
             'user' => $user->where('id', auth()->user()->id)->first()
         ]);

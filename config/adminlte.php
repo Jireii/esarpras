@@ -229,47 +229,7 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
 
-        // Sidebar items:
-        [
-            'text'        => 'Beranda',
-            'url'         => '/',
-            'icon'        => 'fas fa-fw fa-tachometer-alt',
-        ],
-        ['header' => 'MENU UTAMA'],
-        [
-            'text' => 'Sarpras',
-            'url'  => '/sarpras',
-            'icon' => 'fas fa-fw fa-box',
-        ],
-        [
-            'text' => 'Buku',
-            'url'  => '/buku',
-            'icon' => 'fas fa-fw fa-book',
-        ],
-        [
-            'text' => 'Ruangan',
-            'url'  => '/ruangan',
-            'icon' => 'fas fa-fw fa-home',
-            'key' => 'ruangan',
-        ],
-        // Menu Pengguna
-        ['header' => 'PENGATURAN'],
-        [
-            'text' => 'Profil',
-            'url'  => '/profil',
-            'icon' => 'fas fa-fw fa-user',
-            'key' => 'profil',
-        ],
         // Menu Pemberitahuan, Pengaturan PDF, Riwayat Pengguna
     ],
 
@@ -344,7 +304,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
+                    'location' => 'vendor/datatables-plugins/buttons/js/buttons.html5.js',
                 ],
                 [
                     'type' => 'js',
@@ -478,32 +438,4 @@ return [
     'livewire' => false,
 ];
 
-if (Auth::user()->role == 'Superuser')
-{
-    $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
-        $event->menu->addAfter('ruangan',
-        [
-            'text' => 'Pengguna',
-            'url'  => '/pengguna',
-            'icon' => 'fas fa-fw fa-users',
-        ]);
-
-        $event->menu->addAfter('profil',
-        [
-            'text'       => 'Pemberitahuan',
-            'icon' => 'fas fa-fw fa-comment',
-            'url'        => '/pemberitahuan',
-        ],
-        [
-            'text'       => 'Pengaturan PDF',
-            'icon' => 'fas fa-fw fa-cog',
-            'url'        => '/pengaturanpdf',
-        ],
-        [
-            'text'       => 'Riwayat Pengguna',
-            'icon' => 'fas fa-fw fa-history',
-            'url'        => '/riwayatpengguna',
-        ]);
-    });
-}

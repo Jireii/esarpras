@@ -1181,13 +1181,13 @@ DataTable.ext.buttons.excelHtml5 = {
 			addRow( data.header, rowPos );
 			$('row:last c', rels).attr( 's', '2' ); // bold
 		}
-	
+
 		dataStartRow = rowPos;
 
 		for ( var n=0, ie=data.body.length ; n<ie ; n++ ) {
 			addRow( data.body[n], rowPos );
 		}
-	
+
 		dataEndRow = rowPos;
 
 		if ( config.footer && data.footer ) {
@@ -1355,32 +1355,50 @@ DataTable.ext.buttons.pdfHtml5 = {
 		var doc = {
 			pageSize: config.pageSize,
 			pageOrientation: config.orientation,
-			content: [
+			header: {
+                margin: 8,
+                columns: [
+                    {
+                        width: '20%',
+                        image: '',
+                        width: 150,
+                        height: 150
+                    },
+                    {
+                        width: '*',
+                        text: 'Second column'
+                    },
+                    {
+                        width: '20%',
+                        image: '',
+                        width: 150,
+                        height: 150
+                    }
+                  ],
+            },
+            content: [
 				{
+
 					table: {
 						headerRows: 1,
 						body: rows
 					},
-					layout: 'noBorders'
 				}
 			],
+
 			styles: {
 				tableHeader: {
 					bold: true,
 					fontSize: 11,
-					color: 'white',
-					fillColor: '#2d4154',
 					alignment: 'center'
 				},
 				tableBodyEven: {},
 				tableBodyOdd: {
-					fillColor: '#f3f3f3'
+
 				},
 				tableFooter: {
 					bold: true,
 					fontSize: 11,
-					color: 'white',
-					fillColor: '#2d4154'
 				},
 				title: {
 					alignment: 'center',

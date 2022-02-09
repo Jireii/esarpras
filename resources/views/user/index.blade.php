@@ -18,7 +18,7 @@
         </x-adminlte-alert>
     @endif
 
-    <x-adminlte-card theme="success" theme-mode="outline">
+    <x-adminlte-card theme="success" theme-mode="outline" title="Rincian Profil">
         <div class="row">
             <div class="col-md-4 mt-3">
                 <label for="">Foto</label>
@@ -72,12 +72,10 @@
 
         <div class="row">
             <a href="{{ route('dashboard') }}" class="mr-auto">
-                <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button"
-                    class="btn-sm mt-3" />
+                <x-adminlte-button icon="fas fa-fw fa-long-arrow-alt-left" label="Kembali" theme="secondary" type="button" class="btn-sm mt-3" />
             </a>
             <a href="/profil/{{ auth()->user()->id }}/edit" }}">
-                <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button"
-                    class="btn-sm mt-3" />
+                <x-adminlte-button icon="fas fa-fw fa-edit" label="Edit" theme="success" type="button" class="btn-sm mt-3" />
             </a>
         </div>
     </x-adminlte-card>

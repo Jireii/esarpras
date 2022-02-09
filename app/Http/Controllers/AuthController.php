@@ -93,9 +93,6 @@ class AuthController extends Controller
 
     public function edit(User $user)
     {
-        if(auth()->user()->role !== 'Superuser') {
-            return redirect('/');
-        }
         {
             return view('auth.edit', [
                 'user' => $user
@@ -105,9 +102,6 @@ class AuthController extends Controller
 
     public function update(Request $request, User $user)
     {
-        if(auth()->user()->role !== 'Superuser') {
-            return redirect('/');
-        }
          $rules = [
             'nama' => 'required',
             'nik' => 'max:16',
