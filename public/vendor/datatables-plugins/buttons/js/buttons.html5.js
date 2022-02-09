@@ -1355,27 +1355,6 @@ DataTable.ext.buttons.pdfHtml5 = {
 		var doc = {
 			pageSize: config.pageSize,
 			pageOrientation: config.orientation,
-			header: {
-                margin: 8,
-                columns: [
-                    {
-                        width: '20%',
-                        image: '',
-                        width: 150,
-                        height: 150
-                    },
-                    {
-                        width: '*',
-                        text: 'Second column'
-                    },
-                    {
-                        width: '20%',
-                        image: '',
-                        width: 150,
-                        height: 150
-                    }
-                  ],
-            },
             content: [
 				{
 
@@ -1459,7 +1438,7 @@ DataTable.ext.buttons.pdfHtml5 = {
 
 	exportOptions: {},
 
-	orientation: 'portrait',
+	orientation: 'Portrait',
 
 	pageSize: 'A4',
 
@@ -1479,3 +1458,22 @@ DataTable.ext.buttons.pdfHtml5 = {
 
 return DataTable.Buttons;
 }));
+
+function getBase64Image(img) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    // Get the data-URL formatted image
+    // Firefox supports PNG and JPEG. You could check img.src to
+    // guess the original format, but be aware the using "image/jpg"
+    // will re-encode the image.
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}

@@ -19,7 +19,7 @@
                 <x-adminlte-info-box title="Jumlah Ruangan" text="{{ $space }}" icon="fas fa-lg fa-home" icon-theme="purple"/>
             </div>
             <div class="col-3">
-                <a href="{{ asset('documents/Petunjuk Penggunaan e-Sarpras.pdf') }}">
+                <a href="{{ asset('documents/Petunjuk Penggunaan e-Sarpras.pdf') }}" target="_blank">
                 <div class="info-box">
                     <span class="info-box-icon bg-danger">
                     <i class="fas fa-lg fa-file-pdf"></i>

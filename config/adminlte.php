@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'e-Sarpras',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -34,7 +34,8 @@ return [
     */
 
     'use_ico_only' => false,
-    'use_full_favicon' => true,
+    'use_full_favicon' => false,
+
 
     /*
     |--------------------------------------------------------------------------
